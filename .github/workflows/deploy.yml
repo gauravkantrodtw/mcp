@@ -1,0 +1,103 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  FUNCTION_NAME: mcp-server
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Create deployment package
+        run: |
+          chmod +x create_deployment_package.sh
+          ./create_deployment_package.sh
+
+      - name: Deploy to Lambda
+        run: |
+          # Check if function exists
+          if aws lambda get-function --function-name ${{ env.FUNCTION_NAME }} >/dev/null 2>&1; then
+            echo "Updating existing function..."
+            aws lambda update-function-code \
+              --function-name ${{ env.FUNCTION_NAME }} \
+              --zip-file fileb://mcp-server-deployment.zip
+          else
+            echo "Creating new function..."
+            
+            # Create IAM role
+            aws iam create-role \
+              --role-name mcp-server-role \
+              --assume-role-policy-document '{
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": "lambda.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ]
+              }' || echo "Role may already exist"
+            
+            # Attach policies
+            aws iam attach-role-policy \
+              --role-name mcp-server-role \
+              --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole || true
+            
+            aws iam attach-role-policy \
+              --role-name mcp-server-role \
+              --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess || true
+            
+            # Wait for role to be ready
+            sleep 10
+            
+            # Get role ARN
+            ROLE_ARN=$(aws iam get-role --role-name mcp-server-role --query 'Role.Arn' --output text)
+            
+            # Create Lambda function
+            aws lambda create-function \
+              --function-name ${{ env.FUNCTION_NAME }} \
+              --runtime python3.12 \
+              --role $ROLE_ARN \
+              --handler lambda_handler.lambda_handler \
+              --zip-file fileb://mcp-server-deployment.zip \
+              --architecture arm64 \
+              --memory-size 512 \
+              --timeout 30
+          fi
+
+      - name: Test deployment
+        run: |
+          # Test the function
+          aws lambda invoke \
+            --function-name ${{ env.FUNCTION_NAME }} \
+            --payload '{"httpMethod": "GET", "path": "/health"}' \
+            response.json
+          
+          echo "Function response:"
+          cat response.json
