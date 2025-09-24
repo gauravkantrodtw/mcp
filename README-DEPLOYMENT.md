@@ -23,6 +23,7 @@ Add these secrets to your GitHub repository (Settings → Secrets and variables 
 
 - `AWS_ACCESS_KEY_ID`: Your AWS access key
 - `AWS_SECRET_ACCESS_KEY`: Your AWS secret key
+- `AWS_SESSION_TOKEN`: Your AWS session token (optional, for temporary credentials like SSO/STS)
 
 ### 3. Deploy
 
