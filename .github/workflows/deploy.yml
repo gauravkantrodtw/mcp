@@ -93,35 +93,43 @@ jobs:
 
       - name: Test deployment
         run: |
-          # Test the MCP function with the exact test event from lambda_handler.py
+          # Create test payload file to avoid encoding issues
+          cat > test-payload.json << 'EOF'
+          {
+            "version": "2.0",
+            "routeKey": "POST /mcp",
+            "rawPath": "/mcp",
+            "rawQueryString": "",
+            "headers": {
+              "content-type": "application/json",
+              "host": "localhost"
+            },
+            "requestContext": {
+              "http": {
+                "method": "POST",
+                "path": "/mcp",
+                "protocol": "HTTP/1.1",
+                "sourceIp": "127.0.0.1",
+                "userAgent": "test-agent"
+              },
+              "requestId": "test-request-id",
+              "accountId": "123456789012",
+              "apiId": "test-api-id",
+              "stage": "test"
+            },
+            "body": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/list\", \"params\": {}}",
+            "isBase64Encoded": false
+          }
+          EOF
+          
+          # Test the MCP function
           aws lambda invoke \
             --function-name ${{ env.FUNCTION_NAME }} \
-            --payload '{
-              "version": "2.0",
-              "routeKey": "POST /mcp",
-              "rawPath": "/mcp",
-              "rawQueryString": "",
-              "headers": {
-                "content-type": "application/json",
-                "host": "localhost"
-              },
-              "requestContext": {
-                "http": {
-                  "method": "POST",
-                  "path": "/mcp",
-                  "protocol": "HTTP/1.1",
-                  "sourceIp": "127.0.0.1",
-                  "userAgent": "test-agent"
-                },
-                "requestId": "test-request-id",
-                "accountId": "123456789012",
-                "apiId": "test-api-id",
-                "stage": "test"
-              },
-              "body": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/list\", \"params\": {}}",
-              "isBase64Encoded": false
-            }' \
+            --payload fileb://test-payload.json \
             response.json
           
           echo "MCP Function response:"
           cat response.json
+          
+          # Clean up
+          rm test-payload.json
