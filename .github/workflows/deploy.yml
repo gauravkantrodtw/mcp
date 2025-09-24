@@ -143,7 +143,10 @@ jobs:
           # Create /mcp endpoint
           MCP_ID=$(aws apigateway create-resource --rest-api-id $API_ID --parent-id $ROOT_ID --path-part mcp --query 'id' --output text)
           aws apigateway put-method --rest-api-id $API_ID --resource-id $MCP_ID --http-method POST --authorization-type NONE
-          aws apigateway put-integration --rest-api-id $API_ID --resource-id $MCP_ID --http-method POST --type AWS_PROXY --integration-http-method POST --uri "arn:aws:apigateway:${{ env.AWS_REGION }}:lambda:path/2015-03-31/functions/${{ env.FUNCTION_NAME }}/invocations"
+          
+          # Get Lambda function ARN
+          LAMBDA_ARN=$(aws lambda get-function --function-name ${{ env.FUNCTION_NAME }} --query 'Configuration.FunctionArn' --output text)
+          aws apigateway put-integration --rest-api-id $API_ID --resource-id $MCP_ID --http-method POST --type AWS_PROXY --integration-http-method POST --uri "arn:aws:apigateway:${{ env.AWS_REGION }}:lambda:path/2015-03-31/functions/$LAMBDA_ARN/invocations"
           
           # Deploy and set permissions
           aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
