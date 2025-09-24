@@ -31,6 +31,7 @@ async def handle_mcp_request(request_body: str) -> dict:
         if method == "tools/list":
             tools_list = await mcp.list_tools()
             result = [{"name": tool.name, "description": tool.description} for tool in tools_list]
+            logger.info(result)
         elif method == "tools/call":
             tool_name = params.get("name")
             tool_args = params.get("arguments", {})
@@ -50,11 +51,6 @@ async def handle_mcp_request(request_body: str) -> dict:
             "id": request_data.get("id") if 'request_data' in locals() else None,
             "error": {"code": -32603, "message": "Internal error"}
         }
-
-async def _init_mcp():
-    # Initialize MCP server (loads tools, connections, etc.)
-    await mcp.initialize()
-    logger.info("MCP server initialized")
 
 
 def get_handler():
@@ -83,7 +79,6 @@ def get_handler():
             Route("/health", health_endpoint, methods=["GET"])
         ])
 
-        asyncio.run(_init_mcp())
         _handler = Mangum(app, lifespan="off")
     return _handler
 
