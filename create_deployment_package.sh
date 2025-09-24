@@ -14,9 +14,13 @@ mkdir -p $PACKAGE_DIR
 echo "Generating requirements.txt from pyproject.toml..."
 uv export --format requirements-txt > requirements.txt
 
-# Install dependencies in package directory for ARM64 (following AWS docs)
-echo "Installing dependencies in package directory for ARM64..."
-uv pip install --system --target ./package --python-platform aarch64-unknown-linux-gnu --only-binary=:all: -r requirements.txt
+# Install dependencies in package directory
+echo "Installing dependencies in package directory..."
+# For x86_64 Lambda
+uv pip install --system --target ./package -r requirements.txt
+
+# Alternative: For ARM64 Lambda (uncomment the line below and comment the line above)
+# uv pip install --system --target ./package --python-platform aarch64-unknown-linux-gnu --only-binary=:all: -r requirements.txt
 
 # Create zip file with dependencies at root (following AWS docs)
 echo "Creating zip file with dependencies at root..."
@@ -26,7 +30,7 @@ cd ..
 
 # Add source code files to root of zip (following AWS docs)
 echo "Adding source code files to root of zip..."
-zip mcp-server-deployment.zip lambda_function.py
+zip mcp-server-deployment.zip lambda_handler.py
 zip mcp-server-deployment.zip server.py
 zip mcp-server-deployment.zip main.py
 zip mcp-server-deployment.zip generate_parquet.py

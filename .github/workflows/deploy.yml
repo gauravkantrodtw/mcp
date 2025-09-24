@@ -6,6 +6,7 @@ on:
 env:
   AWS_REGION: eu-central-1
   FUNCTION_NAME: mcp-server
+  LAMBDA_ARCHITECTURE: x86_64  # Change to arm64 if you want ARM64 Lambda
 
 jobs:
   deploy:
@@ -85,7 +86,7 @@ jobs:
               --role $ROLE_ARN \
               --handler lambda_handler.lambda_handler \
               --zip-file fileb://mcp-server-deployment.zip \
-              --architecture arm64 \
+              --architecture ${{ env.LAMBDA_ARCHITECTURE }} \
               --memory-size 512 \
               --timeout 30
           fi
