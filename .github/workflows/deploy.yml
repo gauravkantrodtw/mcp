@@ -163,6 +163,9 @@ jobs:
           # Deploy and set permissions
           aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
           
+          # Get AWS account ID for proper ARN
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          
           # Create unique statement ID with timestamp
           STATEMENT_ID="apigateway-invoke-$(date +%s)"
           
@@ -172,10 +175,10 @@ jobs:
             --statement-id $STATEMENT_ID \
             --action lambda:InvokeFunction \
             --principal apigateway.amazonaws.com \
-            --source-arn "arn:aws:execute-api:${{ env.AWS_REGION }}:*:$API_ID/*/POST/mcp" || echo "Permission may already exist, continuing..."
+            --source-arn "arn:aws:execute-api:${{ env.AWS_REGION }}:$ACCOUNT_ID:$API_ID/*/POST/mcp" || echo "Permission may already exist, continuing..."
           
-          # Update stage to ensure deployment propagates
-          aws apigateway update-stage --rest-api-id $API_ID --stage-name prod
+          # Wait for deployment to complete
+          sleep 3
           
           # Output endpoint URL
           API_URL="https://$API_ID.execute-api.${{ env.AWS_REGION }}.amazonaws.com/prod"
