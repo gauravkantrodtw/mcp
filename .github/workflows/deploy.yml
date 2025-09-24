@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-central-1
+  AWS_REGION: eu-central-1
   FUNCTION_NAME: mcp-server
 
 jobs:
