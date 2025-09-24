@@ -4,8 +4,7 @@ import json
 import requests
 import os
 
-API_URL = "https://wnu8q212td.execute-api.eu-central-1.amazonaws.com/prod/mcp"
-API_TOKEN = os.environ.get('API_TOKEN', 'your_token_here')
+API_URL = "https://1lze1kb4t0.execute-api.eu-central-1.amazonaws.com/prod/mcp"
 
 print("MCP proxy started", flush=True)
 
@@ -17,7 +16,6 @@ def main():
             continue
 
         headers = {
-            'Authorization': f'Bearer {API_TOKEN}',
             'Content-Type': 'application/json'
         }
         resp = requests.post(API_URL, json=req, headers=headers)
