@@ -133,3 +133,22 @@ jobs:
           
           # Clean up
           rm test-payload.json
+
+      - name: Create API Gateway
+        run: |
+          # Create API Gateway
+          API_ID=$(aws apigateway create-rest-api --name mcp-server-api --query 'id' --output text)
+          ROOT_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query 'items[0].id' --output text)
+          
+          # Create /mcp endpoint
+          MCP_ID=$(aws apigateway create-resource --rest-api-id $API_ID --parent-id $ROOT_ID --path-part mcp --query 'id' --output text)
+          aws apigateway put-method --rest-api-id $API_ID --resource-id $MCP_ID --http-method POST --authorization-type NONE
+          aws apigateway put-integration --rest-api-id $API_ID --resource-id $MCP_ID --http-method POST --type AWS_PROXY --integration-http-method POST --uri "arn:aws:apigateway:${{ env.AWS_REGION }}:lambda:path/2015-03-31/functions/${{ env.FUNCTION_NAME }}/invocations"
+          
+          # Deploy and set permissions
+          aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
+          aws lambda add-permission --function-name ${{ env.FUNCTION_NAME }} --statement-id apigateway-invoke --action lambda:InvokeFunction --principal apigateway.amazonaws.com --source-arn "arn:aws:execute-api:${{ env.AWS_REGION }}:*:$API_ID/*/*" || true
+          
+          # Output endpoint URL
+          API_URL="https://$API_ID.execute-api.${{ env.AWS_REGION }}.amazonaws.com/prod"
+          echo "MCP Endpoint: $API_URL/mcp"
