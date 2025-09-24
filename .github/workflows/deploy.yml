@@ -136,6 +136,18 @@ jobs:
 
       - name: Create API Gateway
         run: |
+          # Clean up existing API Gateways with the same name
+          echo "Cleaning up existing API Gateways..."
+          aws apigateway get-rest-apis --query 'items[?name==`mcp-server-api`].[id]' --output text | while read api_id; do
+            if [ ! -z "$api_id" ]; then
+              echo "Deleting existing API Gateway: $api_id"
+              aws apigateway delete-rest-api --rest-api-id $api_id || echo "Failed to delete $api_id, continuing..."
+            fi
+          done
+          
+          # Wait a moment for cleanup
+          sleep 5
+          
           # Create API Gateway
           API_ID=$(aws apigateway create-rest-api --name mcp-server-api --query 'id' --output text)
           ROOT_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query 'items[0].id' --output text)
@@ -150,7 +162,20 @@ jobs:
           
           # Deploy and set permissions
           aws apigateway create-deployment --rest-api-id $API_ID --stage-name prod
-          aws lambda add-permission --function-name ${{ env.FUNCTION_NAME }} --statement-id apigateway-invoke --action lambda:InvokeFunction --principal apigateway.amazonaws.com --source-arn "arn:aws:execute-api:${{ env.AWS_REGION }}:*:$API_ID/*/*" || true
+          
+          # Create unique statement ID with timestamp
+          STATEMENT_ID="apigateway-invoke-$(date +%s)"
+          
+          # Add permission with specific source ARN for the /mcp endpoint
+          aws lambda add-permission \
+            --function-name ${{ env.FUNCTION_NAME }} \
+            --statement-id $STATEMENT_ID \
+            --action lambda:InvokeFunction \
+            --principal apigateway.amazonaws.com \
+            --source-arn "arn:aws:execute-api:${{ env.AWS_REGION }}:*:$API_ID/*/POST/mcp" || echo "Permission may already exist, continuing..."
+          
+          # Update stage to ensure deployment propagates
+          aws apigateway update-stage --rest-api-id $API_ID --stage-name prod
           
           # Output endpoint URL
           API_URL="https://$API_ID.execute-api.${{ env.AWS_REGION }}.amazonaws.com/prod"
