@@ -16,7 +16,7 @@ uv export --format requirements-txt > requirements.txt
 
 # Create a minimal requirements.txt for Lambda by filtering the exported requirements
 echo "Creating minimal requirements for Lambda..."
-grep -E "^(fastapi|mangum|mcp|boto3|pydantic|starlette|uvicorn|pydantic-core)" requirements.txt > requirements-lambda.txt
+grep -E "^(fastapi|mangum|mcp|boto3|pydantic|starlette|uvicorn|pydantic-core)" requirements.txt | sed 's/\\$//' > requirements-lambda.txt
 
 # Verify we have the essential packages
 echo "Lambda requirements:"
