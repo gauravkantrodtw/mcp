@@ -16,31 +16,32 @@ uv export --format requirements-txt > requirements.txt
 
 # Install dependencies in package directory
 echo "Installing dependencies in package directory..."
-# For x86_64 Lambda
+# GitHub Actions runs on ubuntu-latest (x86_64), so dependencies will be correct architecture
 uv pip install --system --target ./package -r requirements.txt
 
 # Alternative: For ARM64 Lambda (uncomment the line below and comment the line above)
 # uv pip install --system --target ./package --python-platform aarch64-unknown-linux-gnu --only-binary=:all: -r requirements.txt
 
-# Create zip file with dependencies at root (following AWS docs)
+# Add source code files to package directory first
+echo "Adding source code files to package directory..."
+cp lambda_handler.py $PACKAGE_DIR/
+cp fastapi_server.py $PACKAGE_DIR/
+cp server.py $PACKAGE_DIR/
+cp main.py $PACKAGE_DIR/
+cp generate_parquet.py $PACKAGE_DIR/
+
+# Add directories to package directory
+cp -r tools/ $PACKAGE_DIR/
+cp -r utils/ $PACKAGE_DIR/
+cp -r prompts/ $PACKAGE_DIR/
+cp -r resources/ $PACKAGE_DIR/
+cp -r data/ $PACKAGE_DIR/
+
+# Create zip file with everything at root (following AWS docs)
 echo "Creating zip file with dependencies at root..."
 cd $PACKAGE_DIR
 zip -r ../mcp-server-deployment.zip .
 cd ..
-
-# Add source code files to root of zip (following AWS docs)
-echo "Adding source code files to root of zip..."
-zip mcp-server-deployment.zip lambda_handler.py
-zip mcp-server-deployment.zip server.py
-zip mcp-server-deployment.zip main.py
-zip mcp-server-deployment.zip generate_parquet.py
-
-# Add directories to root of zip
-zip -r mcp-server-deployment.zip tools/
-zip -r mcp-server-deployment.zip utils/
-zip -r mcp-server-deployment.zip prompts/
-zip -r mcp-server-deployment.zip resources/
-zip -r mcp-server-deployment.zip data/
 
 echo "Deployment package created: mcp-server-deployment.zip"
 echo "Package size: $(du -h mcp-server-deployment.zip | cut -f1)"
