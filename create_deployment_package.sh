@@ -14,18 +14,10 @@ mkdir -p $PACKAGE_DIR
 echo "Generating requirements.txt from pyproject.toml..."
 uv export --format requirements-txt > requirements.txt
 
-# Create a minimal requirements.txt for Lambda by filtering the exported requirements
-echo "Creating minimal requirements for Lambda..."
-grep -E "^(fastapi|mangum|mcp|boto3|pydantic|starlette|uvicorn|pydantic-core)" requirements.txt | sed 's/\\$//' > requirements-lambda.txt
-
-# Verify we have the essential packages
-echo "Lambda requirements:"
-cat requirements-lambda.txt
-
 # Install dependencies in package directory
 echo "Installing dependencies in package directory..."
 # For x86_64 Lambda - use manylinux2014 platform for maximum compatibility
-uv pip install --system --target ./package --python-platform x86_64-manylinux2014 --only-binary=:all: -r requirements-lambda.txt
+uv pip install --system --target ./package --python-platform x86_64-manylinux2014 --only-binary=:all: -r requirements.txt
 
 # Alternative: For ARM64 Lambda (uncomment the line below and comment the line above)
 # uv pip install --system --target ./package --python-platform aarch64-manylinux2014 --only-binary=:all: -r requirements.txt
