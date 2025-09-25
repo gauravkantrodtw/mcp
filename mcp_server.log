@@ -1,0 +1,179 @@
+2025-09-24 23:59:32,441 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-24 23:59:32,986 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-24 23:59:33,124 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-24 23:59:33,148 - __main__ - INFO - Starting MCP session manager
+2025-09-24 23:59:52,817 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-24 23:59:53,120 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:00:10,248 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:00:10,439 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:00:10,565 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:00:40,061 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:00:40,257 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:00:40,396 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:00:56,749 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:00:56,937 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:00:57,067 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:01:08,406 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:01:08,594 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:01:08,645 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:01:30,148 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:01:30,319 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:01:30,492 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:01:30,492 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:01:38,301 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:01:38,478 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:01:38,551 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:01:38,551 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:01:54,330 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:01:54,554 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:01:54,699 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:01:54,699 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:02:05,575 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:02:05,751 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:02:05,825 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:02:05,825 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:02:05,835 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:02:21,945 - mcp.server.streamable_http - INFO - Terminating session: None
+2025-09-25 00:02:21,945 - mcp.server.streamable_http - ERROR - Error in message router
+Traceback (most recent call last):
+  File "/Users/gauravkantrod/Desktop/1_Databricks_accelerator/workspace/spike_fast_mcp/.venv/lib/python3.12/site-packages/mcp/server/streamable_http.py", line 831, in message_router
+    async for session_message in write_stream_reader:
+  File "/Users/gauravkantrod/Desktop/1_Databricks_accelerator/workspace/spike_fast_mcp/.venv/lib/python3.12/site-packages/anyio/abc/_streams.py", line 41, in __anext__
+    return await self.receive()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkantrod/Desktop/1_Databricks_accelerator/workspace/spike_fast_mcp/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 111, in receive
+    return self.receive_nowait()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gauravkantrod/Desktop/1_Databricks_accelerator/workspace/spike_fast_mcp/.venv/lib/python3.12/site-packages/anyio/streams/memory.py", line 93, in receive_nowait
+    raise ClosedResourceError
+anyio.ClosedResourceError
+2025-09-25 00:02:29,152 - mcp.server.streamable_http - INFO - Terminating session: None
+2025-09-25 00:02:33,265 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-09-25 00:02:33,266 - mcp.server.streamable_http - INFO - Terminating session: None
+2025-09-25 00:02:36,559 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:02:42,592 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:02:42,844 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:02:42,965 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:02:42,965 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:02:42,976 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:02:48,466 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2025-09-25 00:02:48,467 - mcp.server.streamable_http - INFO - Terminating session: None
+2025-09-25 00:02:52,474 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:03:35,027 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:03:35,201 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:03:35,331 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:03:35,331 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:03:35,343 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:03:37,855 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-09-25 00:03:37,855 - mcp.server.lowlevel.server - WARNING - Tool 'list_buckets' not listed, no validation will be performed
+2025-09-25 00:03:37,856 - mcp.server.streamable_http - INFO - Terminating session: None
+2025-09-25 00:03:37,860 - mcp.server.lowlevel.server - INFO - Processing request of type CallToolRequest
+2025-09-25 00:03:37,860 - mcp.server.lowlevel.server - WARNING - Tool 'summarize_csv_file' not listed, no validation will be performed
+2025-09-25 00:03:37,860 - mcp.server.streamable_http - INFO - Terminating session: None
+2025-09-25 00:03:37,971 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:03:50,980 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:03:51,151 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:03:51,266 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:03:51,266 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:03:51,274 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:03:53,804 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 2036b0b3af614f38b25a59266d83f3ad
+2025-09-25 00:03:53,809 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 14bb916fe8cf4611bb6bf6e2fda0a703
+2025-09-25 00:03:54,000 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:04:25,459 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:04:25,631 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:04:25,766 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:04:25,766 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:04:25,774 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:04:28,280 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 4f1ec86670d8442992ce08d466d4bc8c
+2025-09-25 00:04:28,401 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:04:37,742 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:04:37,913 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:04:37,986 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:04:37,986 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:04:37,994 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:04:40,567 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: aba3775c17a24d49bf48591c6378309e
+2025-09-25 00:04:40,723 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:04:51,529 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:04:51,701 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:04:51,831 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:04:51,831 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:04:51,839 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:04:54,352 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 20b7fc8bd2404e3d898c1dbd7854245f
+2025-09-25 00:04:54,357 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 46d56ade3be842069487f59d2f0d0611
+2025-09-25 00:04:54,361 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: c109675101e44eb3b17384d9b8068a3d
+2025-09-25 00:04:54,467 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:05:42,535 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:05:42,715 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:05:42,831 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:05:42,831 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:05:42,839 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:05:45,379 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: bf0025ee8a424e4a96ee233b663ba5e8
+2025-09-25 00:05:45,385 - root - WARNING - Failed to validate request: Received request before initialization was complete
+2025-09-25 00:05:45,388 - root - WARNING - Failed to validate request: Received request before initialization was complete
+2025-09-25 00:05:45,569 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:06:20,029 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:06:20,231 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:06:20,418 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:06:20,418 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:06:20,425 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:06:22,869 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: b73d486d39c1469bb8e236e644767ade
+2025-09-25 00:06:22,876 - root - WARNING - Failed to validate request: Received request before initialization was complete
+2025-09-25 00:06:23,055 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:07:17,683 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:07:17,683 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:07:17,981 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:07:17,981 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:08:24,152 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:08:24,153 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:08:24,467 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:08:24,467 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:08:24,467 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:08:24,467 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:08:24,476 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:08:24,476 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:08:24,477 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:08:26,786 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:08:26,804 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:08:27,059 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:08:27,059 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:08:27,067 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:08:27,067 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:08:27,067 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:08:27,068 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:08:27,076 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:08:27,076 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:08:29,172 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:08:29,353 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:08:29,431 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:08:29,432 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:08:29,439 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:08:29,440 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:08:37,248 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 6d0f89df25624e22870762d5204c3d93
+2025-09-25 00:08:40,641 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:08:49,531 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:08:49,728 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:08:49,893 - __main__ - INFO - Starting FastAPI MCP server with Streamable HTTP transport
+2025-09-25 00:08:49,900 - __main__ - INFO - Starting MCP session manager
+2025-09-25 00:09:04,147 - __main__ - INFO - Shutting down MCP session manager
+2025-09-25 00:09:17,822 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:09:18,004 - botocore.credentials - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2025-09-25 00:09:18,145 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:09:18,145 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:09:18,154 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:09:25,538 - mcp.server.streamable_http_manager - INFO - Created new transport with session ID: 32abc916ca0845b59c40d192fbb8f531
+2025-09-25 00:09:32,098 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:09:41,006 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:09:41,006 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:09:41,321 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:09:41,321 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:09:41,321 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:09:41,321 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:09:41,329 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:09:41,329 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:09:41,329 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:09:58,683 - server - INFO - MCP Server instance created: S3 CSV Analysis Server
+2025-09-25 00:09:58,984 - __main__ - INFO - MCP Server initialized with tools
+2025-09-25 00:09:58,984 - __main__ - INFO - Starting MCP server with Streamable HTTP transport
+2025-09-25 00:09:58,991 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager started
+2025-09-25 00:09:58,991 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
+2025-09-25 00:10:12,456 - mcp.server.streamable_http_manager - INFO - StreamableHTTP session manager shutting down
