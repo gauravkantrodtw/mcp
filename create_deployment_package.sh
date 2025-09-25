@@ -17,7 +17,7 @@ uv export --format requirements-txt > requirements.txt
 # Install dependencies in package directory
 echo "Installing dependencies in package directory..."
 # For x86_64 Lambda - use platform-specific installation to ensure compatibility
-uv pip install --system --target ./package --python-platform linux_x86_64 --only-binary=:all: -r requirements.txt
+uv pip install --system --target ./package --python-platform x86_64-unknown-linux-gnu --only-binary=:all: -r requirements.txt
 
 # Alternative: For ARM64 Lambda (uncomment the line below and comment the line above)
 # uv pip install --system --target ./package --python-platform aarch64-unknown-linux-gnu --only-binary=:all: -r requirements.txt
