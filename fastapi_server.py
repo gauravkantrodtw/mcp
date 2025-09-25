@@ -14,8 +14,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("mcp_server.log"),
-        logging.StreamHandler(sys.stderr),
+        logging.StreamHandler(sys.stderr),  # Only use stderr in Lambda (read-only filesystem)
     ],
 )
 
