@@ -42,9 +42,30 @@ jobs:
           # Check if function exists
           if aws lambda get-function --function-name ${{ env.FUNCTION_NAME }} >/dev/null 2>&1; then
             echo "Updating existing function..."
+            
+            # Wait for any in-progress updates to complete
+            echo "Checking for in-progress updates..."
+            while true; do
+              STATE=$(aws lambda get-function --function-name ${{ env.FUNCTION_NAME }} --query 'Configuration.State' --output text)
+              if [ "$STATE" = "Active" ]; then
+                echo "Function is ready for update"
+                break
+              elif [ "$STATE" = "Pending" ]; then
+                echo "Function update in progress, waiting 10 seconds..."
+                sleep 10
+              else
+                echo "Function state: $STATE, waiting 5 seconds..."
+                sleep 5
+              fi
+            done
+            
             aws lambda update-function-code \
               --function-name ${{ env.FUNCTION_NAME }} \
               --zip-file fileb://mcp-server-deployment.zip
+            
+            # Wait for code update to complete
+            echo "Waiting for code update to complete..."
+            aws lambda wait function-updated --function-name ${{ env.FUNCTION_NAME }}
             
             # Update function configuration to remove AWS_PROFILE
             aws lambda update-function-configuration \
