@@ -45,6 +45,11 @@ jobs:
             aws lambda update-function-code \
               --function-name ${{ env.FUNCTION_NAME }} \
               --zip-file fileb://mcp-server-deployment.zip
+            
+            # Update function configuration to remove AWS_PROFILE
+            aws lambda update-function-configuration \
+              --function-name ${{ env.FUNCTION_NAME }} \
+              --environment Variables='{FASTMCP_LOG_LEVEL=ERROR}'
           else
             echo "Creating new function..."
             
@@ -88,7 +93,8 @@ jobs:
               --zip-file fileb://mcp-server-deployment.zip \
               --architecture ${{ env.LAMBDA_ARCHITECTURE }} \
               --memory-size 512 \
-              --timeout 30
+              --timeout 30 \
+              --environment Variables='{FASTMCP_LOG_LEVEL=ERROR}'
           fi
 
       - name: Test deployment

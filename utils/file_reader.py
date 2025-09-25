@@ -5,7 +5,8 @@ import os
 
 import boto3
 
-
+# Create S3 client - in Lambda, use default credentials (IAM role)
+# In local development, you can set AWS_PROFILE environment variable
 s3 = boto3.client("s3", region_name="eu-central-1")
 
 # Set up logging
