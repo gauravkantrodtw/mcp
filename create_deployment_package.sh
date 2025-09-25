@@ -14,11 +14,14 @@ mkdir -p $PACKAGE_DIR
 echo "Generating requirements.txt from pyproject.toml..."
 uv export --format requirements-txt > requirements.txt
 
+# Create a Lambda-compatible requirements file by downgrading problematic packages
+echo "Creating Lambda-compatible requirements..."
+sed 's/numpy==2.3.3/numpy>=1.22.4,<2.0.0/' requirements.txt > requirements-lambda.txt
+
 # Install dependencies in package directory
 echo "Installing dependencies in package directory..."
 # For x86_64 Lambda - use manylinux2014 platform for maximum compatibility
-# Allow source builds for numpy if no wheel is available
-uv pip install --system --target ./package --python-platform x86_64-manylinux2014 -r requirements.txt
+uv pip install --system --target ./package --python-platform x86_64-manylinux2014 -r requirements-lambda.txt
 
 # Alternative: For ARM64 Lambda (uncomment the line below and comment the line above)
 # uv pip install --system --target ./package --python-platform aarch64-manylinux2014 --only-binary=:all: -r requirements.txt
