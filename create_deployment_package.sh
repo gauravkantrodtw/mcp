@@ -16,8 +16,8 @@ uv export --format requirements-txt > requirements.txt
 
 # Install dependencies in package directory
 echo "Installing dependencies in package directory..."
-# GitHub Actions runs on ubuntu-latest (x86_64), so dependencies will be correct architecture
-uv pip install --system --target ./package -r requirements.txt
+# For x86_64 Lambda - use platform-specific installation to ensure compatibility
+uv pip install --system --target ./package --python-platform linux_x86_64 --only-binary=:all: -r requirements.txt
 
 # Alternative: For ARM64 Lambda (uncomment the line below and comment the line above)
 # uv pip install --system --target ./package --python-platform aarch64-unknown-linux-gnu --only-binary=:all: -r requirements.txt
